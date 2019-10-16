@@ -5,6 +5,12 @@ describe Garage do
     it { is_expected.to respond_to :capacity }
   end
 
-  it "receives array of bikes" do
+  it "can receive an array of bikes" do
+    van = double(:van, bikes: [1, 2, 3])
+    allow(van).to receive(:deliver_to_garage) do |garage|
+      garage.bikes = van.bikes
+    end
+    van.deliver_to_garage(subject)
+    expect(subject.bikes).to eq([1, 2, 3])
   end
 end
