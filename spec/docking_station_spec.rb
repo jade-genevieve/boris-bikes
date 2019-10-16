@@ -57,5 +57,12 @@ describe DockingStation do
         subject.dock Bike.new
       end
     end
+
+    # As a system maintainer,
+    # So that busy areas can be served more effectively,
+    # I want to be able to specify a larger capacity when necessary.
+    it "has a default capacity" do
+      expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end
   end
 end
