@@ -48,5 +48,13 @@ describe DockingStation do
     # So I can decide whether to use the docking station
     # I want to see a bike that has been docked
     it { is_expected.to respond_to(:bike) }
+
+    # As a maintainer of the system,
+    # So that I can control the distribution of bikes,
+    # I'd like docking stations not to accept more bikes than their capacity.
+    it "raises an error when full" do
+      subject.dock(Bike.new)
+      expect { subject.dock Bike.new }.to raise_error "Docking station full"
+    end
   end
 end
