@@ -20,7 +20,7 @@ describe DockingStation do
     it "releases working bikes" do
       bike = Bike.new
       result = subject.dock(bike)
-      expect(result).to be_working
+      expect(result[0]).to be_working
     end
 
     # As a member of the public,
@@ -41,7 +41,7 @@ describe DockingStation do
     it "docks something" do
       bike = Bike.new
       # return the same bike we dock
-      expect(subject.dock(bike)).to eq bike
+      expect(subject.dock(bike)).to include(bike)
     end
 
     # As a member of the public
