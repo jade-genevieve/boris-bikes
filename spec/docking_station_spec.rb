@@ -10,8 +10,9 @@ describe DockingStation do
   # So that I can use a good bike,
   # I'd like to see if a bike is working
   it "releases working bikes" do
-    bike = subject.release_bike
-    expect(bike).to be_working
+    bike = Bike.new
+    result = subject.dock(bike)
+    expect(result).to be_working
   end
 
   # As a member of the public
