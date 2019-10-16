@@ -16,8 +16,13 @@ class DockingStation
   end
 
   def release_bike
-    fail "No bikes available" if empty?
-    bikes.pop
+    fail "No bikes available" if empty? or bikes.select { |bike| bike.working? }.length == 0
+    bikes.each_with_index do |bike, index|
+      if bike.working?
+        bikes.delete_at(index)
+        return bike
+      end
+    end
   end
 
   private

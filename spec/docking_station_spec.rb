@@ -41,6 +41,16 @@ describe DockingStation do
       # calling release on empty dock
       expect { subject.release_bike }.to raise_error "No bikes available"
     end
+
+    # As a maintainer of the system,
+    # So that I can manage broken bikes and not disappoint users,
+    # I'd like docking stations not to release broken bikes.
+    it "doesn't release a broken bike" do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect { subject.release_bike }.to raise_error "No bikes available"
+    end
   end
 
   describe "#dock" do
@@ -74,10 +84,6 @@ describe DockingStation do
     it "has a default capacity" do
       expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
     end
-
-    # As a maintainer of the system,
-    # So that I can manage broken bikes and not disappoint users,
-    # I'd like docking stations not to release broken bikes.
 
     # As a maintainer of the system,
     # So that I can manage broken bikes and not disappoint users,
