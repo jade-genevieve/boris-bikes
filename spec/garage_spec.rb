@@ -1,0 +1,2 @@
+describe Garage do
+end
