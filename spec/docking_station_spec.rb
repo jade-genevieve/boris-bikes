@@ -19,7 +19,7 @@ describe DockingStation do
     it { is_expected.to respond_to :release_bike }
 
     it "releases a bike" do
-      bike = double :bike
+      bike = double(:bike, working?: true)
       subject.dock(bike)
       # test bike released is same as one just docked
       expect(subject.release_bike).to eq bike
@@ -29,7 +29,7 @@ describe DockingStation do
     # So that I can use a good bike,
     # I'd like to see if a bike is working
     it "releases working bikes" do
-      bike = double :bike
+      bike = double(:bike, working?: true)
       result = subject.dock(bike)
       expect(result[0]).to be_working
     end
@@ -45,10 +45,16 @@ describe DockingStation do
     # As a maintainer of the system,
     # So that I can manage broken bikes and not disappoint users,
     # I'd like docking stations not to release broken bikes.
-    it "doesn't release a broken bike" do
-      bike = double :bike
-      bike.report_broken
-      subject.dock(bike)
+    # it "doesn't release a broken bike" do
+    #   bike = double :bike
+    #   bike.report_broken
+    #   subject.dock(bike)
+    #   expect { subject.release_bike }.to raise_error "No bikes available"
+    # end
+
+    it "does not release broken bikes" do
+      bike = double(:bike, working?: false)
+      subject.dock bike
       expect { subject.release_bike }.to raise_error "No bikes available"
     end
   end
@@ -89,8 +95,7 @@ describe DockingStation do
     # So that I can manage broken bikes and not disappoint users,
     # I'd like docking stations to accept returning bikes (broken or not).
     it "accepts a broken bike" do
-      bike = double :bike
-      bike.report_broken
+      bike = double(:bike, broken?: true)
       subject.dock(bike)
       expect(subject.dock(bike)).to include(bike)
     end
