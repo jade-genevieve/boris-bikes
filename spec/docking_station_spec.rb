@@ -88,5 +88,11 @@ describe DockingStation do
     # As a maintainer of the system,
     # So that I can manage broken bikes and not disappoint users,
     # I'd like docking stations to accept returning bikes (broken or not).
+    it "accepts a broken bike" do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect(subject.dock(bike)).to include(bike)
+    end
   end
 end
