@@ -1,6 +1,17 @@
 require "docking_station"
 
 describe DockingStation do
+  # As a system maintainer,
+  # So that busy areas can be served more effectively,
+  # I want to be able to specify a larger capacity when necessary.
+  describe "initialization" do
+    it "has a variable capacity" do
+      docking_station = DockingStation.new(50)
+      50.times { docking_station.dock Bike.new }
+      expect { docking_station.dock Bike.new }.to raise_error "Docking station full"
+    end
+  end
+
   # As a person,
   # So that I can use a bike,
   # I'd like a docking station to release a bike.
@@ -53,9 +64,8 @@ describe DockingStation do
     # So that I can control the distribution of bikes,
     # I'd like docking stations not to accept more bikes than their capacity.
     it "raises an error when full" do
-      DockingStation::DEFAULT_CAPACITY.times do
-        subject.dock Bike.new
-      end
+      subject.capacity.times { subject.dock Bike.new }
+      expect { subject.dock Bike.new }.to raise_error "Docking station full"
     end
 
     # As a system maintainer,
