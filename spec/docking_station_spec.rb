@@ -29,4 +29,16 @@ describe DockingStation do
   # So I can decide whether to use the docking station
   # I want to see a bike that has been docked
   it { is_expected.to respond_to(:bike) }
+
+  # As a member of the public,
+  # So that I am not confused and charged unnecessarily,
+  # I'd like docking stations not to release bikes when there are none available.
+  describe "#release_bike" do
+    it "releases a bike" do
+      bike = Bike.new
+      subject.dock(bike)
+      # test bike released is same as one just docked
+      expect(subject.release_bike).to eq bike
+    end
+  end
 end
