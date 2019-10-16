@@ -53,7 +53,7 @@ describe DockingStation do
     # So that I can control the distribution of bikes,
     # I'd like docking stations not to accept more bikes than their capacity.
     it "raises an error when full" do
-      subject.dock(Bike.new)
+      20.times { subject.dock Bike.new }
       expect { subject.dock Bike.new }.to raise_error "Docking station full"
     end
   end
