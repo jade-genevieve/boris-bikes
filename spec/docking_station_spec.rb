@@ -19,6 +19,12 @@ describe DockingStation do
   # I want to dock my bike at the docking station
   it { is_expected.to respond_to(:dock).with(1).argument }
 
+  it "docks something" do
+    bike = Bike.new
+    # return the same bike we dock
+    expect(subject.dock(bike)).to eq bike
+  end
+
   # As a member of the public
   # So I can decide whether to use the docking station
   # I want to see a bike that has been docked
