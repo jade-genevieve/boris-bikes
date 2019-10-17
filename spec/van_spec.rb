@@ -20,12 +20,20 @@ describe Van do
       it "should collect fixed bikes" do
         fixed_bikes = [:bike1, :bike2, :bike3]
         mock_garage = instance_double(Garage, fixed_bikes: fixed_bikes)
-        allow(mock_garage).to receive(:instance_of?).and_return(true)
+        allow(mock_garage).to receive(:instance_of?).and_return(false)
         expect(subject.collect_bikes(mock_garage)).to eq([:bike1, :bike2, :bike3])
       end
     end
 
     it "should remove the bikes from the location" do
+      dock = DockingStation.new
+      dock.dock(Bike.new)
+      broken_bike = Bike.new.report_broken
+      dock.dock(broken_bike)
+      van = Van.new
+      van.collect_bikes(dock)
+      puts van.bikes
+      expect(van.bikes.size).to eq(1)
     end
   end
 
