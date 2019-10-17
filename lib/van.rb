@@ -7,4 +7,10 @@ class Van
     @bikes = []
     @capacity = DEFAULT_CAPACITY
   end
+
+  def collect_bikes(location)
+    location.bikes.each do |bike|
+      @bikes << bike
+    end
+  end
 end

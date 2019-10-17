@@ -10,8 +10,8 @@ describe Van do
   describe "#collect_bikes" do
     it "should store broken bikes for transporting" do
       broken_bikes = [:bike1, :bike2, :bike3]
-      mock_dock = double(:docking_station, collect_bikes: broken_bikes)
-      expect(subject.collect_bikes).to eq([:bike1, :bike2, :bike3])
+      mock_dock = double(:docking_station, bikes: broken_bikes)
+      expect(subject.collect_bikes(mock_dock)).to eq([:bike1, :bike2, :bike3])
     end
   end
 
