@@ -1,5 +1,7 @@
+require "van"
+
 describe Van do
-  it { is_expected.to be_a_kind_of(Van) }
+  it { is_expected.to be_an_instance_of(Van) }
 
   # describe "initialization" do
   #   it { is_expected.to respond_to :capacity }
