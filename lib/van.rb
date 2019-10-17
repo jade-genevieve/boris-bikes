@@ -1,3 +1,5 @@
+require_relative "bike"
+
 class Van
   DEFAULT_CAPACITY = 6
 
@@ -10,12 +12,16 @@ class Van
 
   def collect_bikes(location)
     if location.instance_of? DockingStation
-      location.broken_bikes.each do |bike|
+      location.bikes.each do |bike|
         @bikes << bike
+        location.bikes.delete_if { |bike| bike.broken == true }
       end
-    else location.instance_of? Garage
+    else
+      location.instance_of? Garage
       location.fixed_bikes.each do |bike|
-      @bikes << bike
-    end     end
+        @bikes << bike
+        location.bikes.delete_if { |bike| bike.broken == false }
+      end
+    end
   end
 end
