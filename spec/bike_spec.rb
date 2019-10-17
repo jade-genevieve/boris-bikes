@@ -11,7 +11,6 @@ describe Bike do
   # I'd like to report a bike as broken when I return it.
   it "can be reported broken" do
     subject.report_broken
-    # let's use one of RSpec's predicate matchers
-    expect(subject).to be_broken
+    expect(subject.broken).to be(true)
   end
 end

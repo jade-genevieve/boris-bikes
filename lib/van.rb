@@ -10,18 +10,17 @@ class Van
     @capacity = DEFAULT_CAPACITY
   end
 
-  def collect_bikes(location)
-    if location.instance_of? DockingStation
+  def collect_bikes(location, deliver = false)
+    if !deliver
       location.bikes.each do |bike|
         @bikes << bike
-        location.bikes.delete_if { |bike| bike.broken == true }
+        location.bikes.delete_if { |bike| bike.broken == !deliver }
       end
-    else
-      location.instance_of? Garage
-      location.fixed_bikes.each do |bike|
-        @bikes << bike
-        location.bikes.delete_if { |bike| bike.broken == false }
-      end
+    elsif deliver
+      @bikes.each { |bike|
+        location.bikes << bike
+        @bikes = []
+      }
     end
   end
 end

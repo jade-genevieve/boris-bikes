@@ -13,4 +13,16 @@ describe Garage do
     van.deliver_to_garage(subject)
     expect(subject.bikes).to eq([1, 2, 3])
   end
+
+  it "can fix all broken bikes" do
+    garage = Garage.new
+    bikes = [Bike.new, Bike.new, Bike.new]
+    bikes.each {
+      |bike|
+      bike.broken = true
+      garage.bikes << bike
+    }
+    garage.fix
+    expect(garage.bikes[0].broken).to eq(false)
+  end
 end
