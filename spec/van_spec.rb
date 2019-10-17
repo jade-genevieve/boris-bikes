@@ -10,7 +10,8 @@ describe Van do
   describe "#collect_bikes" do
     it "should store broken bikes for transporting" do
       broken_bikes = [:bike1, :bike2, :bike3]
-      mock_dock = instance_double("DockingStation", broken_bikes: broken_bikes)
+      mock_dock = instance_double(DockingStation, broken_bikes: broken_bikes)
+      allow(mock_dock).to receive(:instance_of?).and_return(true)
       expect(subject.collect_bikes(mock_dock)).to eq([:bike1, :bike2, :bike3])
     end
 
